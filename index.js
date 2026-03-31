@@ -144,16 +144,16 @@ const SYSTEM_PROMPT = window.__SYSTEM_PROMPT__;
   let conversationClosed = false;
   let warningIssued = false;
 
-  function autoResize(el) {
+  window.autoResize = function(el) {
     el.style.height = 'auto';
     el.style.height = Math.min(el.scrollHeight, 120) + 'px';
   }
 
-  function handleKey(e) {
+  window.handleKey = function(e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   }
 
-  function updateTrialBadge() {
+  window.updateTrialBadge = function() {
     const badge = document.getElementById('trialBadge');
     const remaining = MAX_FREE - exchangeCount;
     if (remaining <= 3 && remaining > 1) { badge.textContent = remaining + ' exchanges left'; badge.className = 'trial-badge used-1'; }
@@ -161,7 +161,7 @@ const SYSTEM_PROMPT = window.__SYSTEM_PROMPT__;
     else if (remaining <= 0) { badge.className = 'trial-badge hidden'; }
   }
 
-  function appendMessage(role, text, style) {
+  window.appendMessage = function(role, text, style) {
     const messages = document.getElementById('messages');
     const typing = document.getElementById('typing');
     const div = document.createElement('div');
@@ -179,7 +179,7 @@ const SYSTEM_PROMPT = window.__SYSTEM_PROMPT__;
     messages.scrollTop = messages.scrollHeight;
   }
 
-  function setLoading(val) {
+  window.setLoading = function(val) {
     isLoading = val;
     document.getElementById('sendBtn').disabled = val;
     document.getElementById('userInput').disabled = val;
@@ -187,19 +187,19 @@ const SYSTEM_PROMPT = window.__SYSTEM_PROMPT__;
     if (val) document.getElementById('messages').scrollTop = 999999;
   }
 
-  function closeConversation() {
+  window.closeConversation = function() {
     conversationClosed = true;
     document.getElementById('inputArea').style.display = 'none';
     document.getElementById('blockedArea').classList.add('visible');
   }
 
-  function showUpgradeGate() {
+  window.showUpgradeGate = function() {
     document.getElementById('upgradeGate').classList.add('visible');
     document.getElementById('inputArea').style.display = 'none';
     document.getElementById('upgradeGate').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  async function sendMessage() {
+  window.sendMessage = async function() {
     if (isLoading || conversationClosed) return;
     const input = document.getElementById('userInput');
     const text = input.value.trim();
