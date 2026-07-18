@@ -30,7 +30,7 @@ const server = http.createServer((req, res) => {
       try { parsed = JSON.parse(body); } catch(e) { res.writeHead(400, {'Content-Type':'application/json'}); res.end(JSON.stringify({error:'bad json'})); return; }
       const {messages, system} = parsed;
       if (!messages || !Array.isArray(messages)) { res.writeHead(400, {'Content-Type':'application/json'}); res.end(JSON.stringify({error:'no messages'})); return; }
-      const payload = JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:system||'',messages});
+      const payload = JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:system||'',messages});
       const opts = {
         hostname:'api.anthropic.com', path:'/v1/messages', method:'POST',
         headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_API_KEY,'anthropic-version':'2023-06-01','Content-Length':Buffer.byteLength(payload)}
